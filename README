@@ -1,0 +1,21 @@
+To run Battleship:
+1. Run server.py
+2. Run two instances of server_battleship.py
+3. In each instance, select 1: Register Account. The password is automatically stored for now ('pswd').
+4. For each instance, select 2: Log In. Enter one of the registered names. The password is automatically input
+   for now ('pswd').
+5. For each instance, select 3: Play Game. Enter the name of the other registered player.
+6. Once both have selected to Play Game against each other, it will prompt the users to enter their boat locations.
+   You can pick a starting point of A1 (top left) to J10 (bottom right). (NOTE: The y-axis is A-J, starting at the top.
+   The x-axis is 1-10, starting at the left.) Then you will choose H for Horizontal (the boat will be placed horizontal
+   to the right of your selected cell) or V for Vertical (the boat will be placed vertical going downwards of your
+   selected cell). When placing more than one boat, boats may not overlap. The program already checks for valid starting
+   points and placements.
+7. Once both users have placed their boats, the program will choose a beginning player.
+8. Right now, the opponent's gameboard is shown WITH the boats and their positions (for testing). The player whose turn
+   it is, is asked to fire a shot (A1 - J10). The program checks for the results and updates the appropriat gameboards
+   for both clients.
+9. The turn ends and it is the other player's turn.
+10. Steps 8-9 will repeat until there is a winner.
+11. A winning message is shown and the user is asked to hit enter to continue.
+12. The application is restarted and the main menu is shown again.
