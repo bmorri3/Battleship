@@ -1,0 +1,43 @@
+Client games will need to create an instance of ClientMessenger to interact with
+the game server. Use ClientMessenger('127.0.0.1', 9999) for testing over a loopback
+address--this IP address and port is hard-coded in the server code and will work
+with the server code without any need to modify the server code.
+
+After creating an instance of ClientMessenger, the client application should make
+a call to the connect() method. Note that the connection will fail if the Server
+has not already been started. To start the server, open a new terminal window,
+navigate to the battleship_sockets directory and use python Server.py to start
+the server.
+
+After the connect() method has been called, the ClientMessenger is available to
+send and receive data. The create_account, login, logout, connect_with_opponent,
+disconnect_with_opponent, send_ship_placement, and send_shot methods should be
+all that are needed to send the server data it needs from the client. Each message
+to the server should receive a response from the server. Therefore, after the client
+sends data to the server, it should make a call to recv() to receive a reply.
+
+The recv() message is not blocking and therefore may return with no information
+read. The client may thus need to call recv() multiple times until a response is
+delivered. The recv() call will not itself return the response, but rather update
+the ClientState object which is an attribute of the ClientMessenger object. The
+client can read directly from the ClientState object through the ClientMessenger
+object. Because the client knows what message it previously sent, the client can
+query the appropriate attribute of the ClientState object to see if the state changed.
+Note that some attributes may stay the same even after a response is provided by the
+server. For instance, if a user is not logged in, logged_in=False. If incorrect
+credentials are provided, logged_in will remain False because the server will send
+a message stating that the login failed and the "update" to the ClientState will
+simply result in the same state. Therefore, the client may want to have a kind of
+time-out functionality implemented over a loop such that if the expected change
+in ClientState is not seen after a certain amount of time, the prior user action
+can be repeated. This restriction can be addressed in a future sockets module code
+revision.
+
+If ClientMessenger is run with __name__='__main__', tests will be performed to
+verify the use of its methods--looking at that code provides some demonstration
+of functionality. In the case of waiting for expected change in the ClientState
+object as alluded to above, see the opponent connection test. Note that if the
+ClientMessenger is run with __name__='__main__', you must input an integer (either
+1 or 2) for the username for the shot test to work properly. Additionally, during
+testing of the game, username=1 or username=2 should be used. This restriction can
+be addressed in a future sockets module code revision.
